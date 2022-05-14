@@ -64,21 +64,25 @@ def enter_wallet(token):
 
 
 def main():
-    mails = read_mails()
+    mails = {"g_golovin_1979@autorambler.ru": "qEo3n7Vt0t"}
 
     for mail, password in mails.items():
         session = requests.Session()
-        reg_mail = requests.get(f"https://api.step.app/v1/auth/otp-code?email={mail}")  # отправка кода на почту
-        time.sleep(5)
+        reg_mail = session.get(f"https://api.step.app/v1/auth/otp-code?email={mail}")  # отправка кода на почту
+        print(f"Отправка кода на {mail}")
+        time.sleep(25)
         code = get_code_from_rambler(login=mail, password=password)   # получение кода с почты
-        time.sleep(5)
-        token = requests.get(f"https://api.step.app/v1/auth/token?email={mail}&code={code}").json()["access"]["token"]  # подтверждение почты и токен для подтверждения кошелька
+        print(f"Код получен: {code}")
+        token = session.get(f"https://api.step.app/v1/auth/token?email={mail}&code={code}")    #.json() #["access"]["token"] # подтверждение почты и токен для подтверждения кошелька
+        print(token)
+        session.get()
 
         '''
-        
+
         тут должен быть код, для использования реф. кода
-        
+
         '''
 
 
-print(get_code_from_rambler("shcherbakova.ailin.1962@lenta.ru", "zJZFNmxKg4"))
+if __name__ == "__main__":
+    main()
