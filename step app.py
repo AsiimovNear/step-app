@@ -73,7 +73,7 @@ def main():
         time.sleep(25)
         code = get_code_from_rambler(login=mail, password=password)   # получение кода с почты
         print(f"Код получен: {code}")
-        token = session.get(f"https://api.step.app/v1/auth/token?email={mail}&code={code}")    #.json() #["access"]["token"] # подтверждение почты и токен для подтверждения кошелька
+        token = session.get(f"https://api.step.app/v1/auth/token?email={mail}&code={code}").json()["access"]["token"] # подтверждение почты и токен для подтверждения кошелька
         print(token)
         session.get()
 
