@@ -70,7 +70,7 @@ def main():
         session = requests.Session()
         reg_mail = session.get(f"https://api.step.app/v1/auth/otp-code?email={mail}")  # отправка кода на почту
         print(f"Отправка кода на {mail}")
-        time.sleep(25)
+        time.sleep(120) # иногда код приходит через 2-3 минуты
         code = get_code_from_rambler(login=mail, password=password)   # получение кода с почты
         print(f"Код получен: {code}")
         token = session.get(f"https://api.step.app/v1/auth/token?email={mail}&code={code}").json()["access"]["token"] # подтверждение почты и токен для подтверждения кошелька
